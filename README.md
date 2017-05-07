@@ -25,7 +25,6 @@ The report comes in 2 different formats: [PDF](document/report.pdf), HTML (gitbo
 The default port is 2302, which can be changed by modifying [configs.R](src/report/configs.R).
 
 ## Structure
-* **src**: source codes for the project (Java and R).
-* **bin**: Java generated classes.
 * **data**: result of the experiments (in CSV and TXT).
 * **document**: the [report](document/report.pdf) on result of the experiments.
+* **src**: source codes for the project (Java and R).
