@@ -1,6 +1,6 @@
-# Knapsack Vanilla and Its Various Flavors
+# Vanilla Knapsack and Its Various Flavors
 
-<img src="./images/knapsack.png" alt="Drawing" style="margin-left: 0px; width: 140px;"/>
+<img src="./images/knapsack.png" alt = "The Robber Knows You" width = "140px"/>
 
 ## Introduction ##
 This project explores different approach to the familiar Maximum 0-1 Knapsack problem:
@@ -13,9 +13,11 @@ As a _side_ experiment, we attempt to reduce 3SAT to Decision 0-1 Knapsack probl
 
 ## Usage
 To run the experiment, use the build script. You can modify various run settings by modifying [config.properties](config.properties). This script also helps building the report written in R. To modify the rendering of the report, refer to [configs.R](src/report/configs.R). **Make sure that you run the script directly, i.e. launch it from the directory it belongs to.**
+
 ```
 ./build.sh
 ```
+
 The report comes in 2 different formats: [PDF](document/report.pdf), HTML (gitbook, bookdown). To view the HTML version, you can view this [file](document/index.html) or for better functionality, we recommend using the start script which serves the HTML files at a local server, i.e. [localhost:2302](localhost:2302), on your machine (with this, you can use the search function within the document).
 
 ```
