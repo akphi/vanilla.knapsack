@@ -1,0 +1,27 @@
+--- 
+title: "Vanilla Knapsack and Its Various Flavors"
+author: "An Phi"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: blacksteed232/vanilla.knapsack
+description: "This project explores different approaches to the familiar Maximum 0-1 Knapsack problem."
+---
+
+# Introduction {-}
+
+In this project, we explore several different algorithms (flavors) to solve Maximum 0-1 Knapsack, a classic NP-Hard problem, _in a reasonable amount of time_. In our experiments, we want to show the difference between running time and the optimal value obtained using these various algorithms. 
+
+We also want to take a side-track and demonstrate how Maximum 0-1 Knapsack can be used to solve 3SAT, the iconic NP-Complete problem, via the polynomial time reduction from 3SAT to Decision 0-1 Knapsack [@oconnell2013].
+
+We are going to explore 4 different flavors of Knapsack solver, including:
+
+* Maximum Value Dynamic Programming
+* Minimum Cost Dynamic Programming
+* Greedy 2-Approximation 
+* Fully Polynomial-time Approximation Scheme
+

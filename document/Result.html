@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vanilla Knapsack and Its Various Flavors</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Vanilla Knapsack and Its Various Flavors" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem." />
+  <meta name="github-repo" content="blacksteed232/vanilla.knapsack" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vanilla Knapsack and Its Various Flavors" />
+  
+  <meta name="twitter:description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem." />
+  
+
+<meta name="author" content="An Phi">
+
+
+<meta name="date" content="2017-05-06">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="reduction.html">
+<link rel="next" href="conclusion.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>1</b> Methodology</a><ul>
+<li class="chapter" data-level="1.1" data-path="methodology.html"><a href="methodology.html#maximum-0-1-knapsack"><i class="fa fa-check"></i><b>1.1</b> Maximum 0-1 Knapsack</a></li>
+<li class="chapter" data-level="1.2" data-path="methodology.html"><a href="methodology.html#sat"><i class="fa fa-check"></i><b>1.2</b> 3SAT</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="algorithms.html"><a href="algorithms.html"><i class="fa fa-check"></i><b>2</b> Algorithms</a></li>
+<li class="chapter" data-level="3" data-path="reduction.html"><a href="reduction.html"><i class="fa fa-check"></i><b>3</b> Reduction, Beauty and Peril</a></li>
+<li class="chapter" data-level="4" data-path="Result.html"><a href="Result.html"><i class="fa fa-check"></i><b>4</b> Result and Discussion</a></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Vanilla Knapsack and Its Various Flavors</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Result" class="section level1">
+<h1><span class="header-section-number">Section 4</span> Result and Discussion</h1>
+<p>Below is the statistical summary for the values returned from the Knapsack experiments.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Mean</th>
+<th align="left">Median</th>
+<th align="left">L.Quartile</th>
+<th align="left">U.Quartile</th>
+<th align="left">IQR</th>
+<th align="left">Min</th>
+<th align="left">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MaxValDP</td>
+<td align="left">20889</td>
+<td align="left">18730</td>
+<td align="left">10334</td>
+<td align="left">30542</td>
+<td align="left">20208</td>
+<td align="left">1736</td>
+<td align="left">52584</td>
+</tr>
+<tr class="even">
+<td align="left">Greedy</td>
+<td align="left">20844</td>
+<td align="left">18706</td>
+<td align="left">10322</td>
+<td align="left">30540</td>
+<td align="left">20218</td>
+<td align="left">1706</td>
+<td align="left">52565</td>
+</tr>
+<tr class="odd">
+<td align="left">MinCostDP</td>
+<td align="left">20889</td>
+<td align="left">18730</td>
+<td align="left">10334</td>
+<td align="left">30542</td>
+<td align="left">20208</td>
+<td align="left">1736</td>
+<td align="left">52584</td>
+</tr>
+<tr class="even">
+<td align="left">FPTAS</td>
+<td align="left">20740</td>
+<td align="left">18556</td>
+<td align="left">10187</td>
+<td align="left">30341</td>
+<td align="left">20154</td>
+<td align="left">1706</td>
+<td align="left">52425</td>
+</tr>
+</tbody>
+</table>
+<p>Next, we present the summary for the running time of the 4 different algorithms (all results are in milliseconds)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Mean</th>
+<th align="left">Median</th>
+<th align="left">L.Quartile</th>
+<th align="left">U.Quartile</th>
+<th align="left">IQR</th>
+<th align="left">Min</th>
+<th align="left">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MaxValDP</td>
+<td align="left">3.2176</td>
+<td align="left">1.9774</td>
+<td align="left">0.5418</td>
+<td align="left">4.8476</td>
+<td align="left">4.3058</td>
+<td align="left">0.0362</td>
+<td align="left">15.4099</td>
+</tr>
+<tr class="even">
+<td align="left">Greedy</td>
+<td align="left">0.021</td>
+<td align="left">0.0174</td>
+<td align="left">0.0141</td>
+<td align="left">0.0218</td>
+<td align="left">0.0078</td>
+<td align="left">0.0042</td>
+<td align="left">0.9377</td>
+</tr>
+<tr class="odd">
+<td align="left">MinCostDP</td>
+<td align="left">6.35</td>
+<td align="left">5.1616</td>
+<td align="left">1.3391</td>
+<td align="left">10.0938</td>
+<td align="left">8.7547</td>
+<td align="left">0.1814</td>
+<td align="left">38.636</td>
+</tr>
+<tr class="even">
+<td align="left">FPTAS</td>
+<td align="left">0.9644</td>
+<td align="left">0.6384</td>
+<td align="left">0.1052</td>
+<td align="left">1.5369</td>
+<td align="left">1.4317</td>
+<td align="left">0.0177</td>
+<td align="left">5.3458</td>
+</tr>
+</tbody>
+</table>
+<p>These are just the summary of the result. Beside these, for each problem instance, we also collect the number of items <span class="math inline">\(N\)</span>, the budget, and the maximum value, as these might help us understand the running time results better.</p>
+<ul>
+<li><span style="font-variant: small-caps;">MaxValDP</span></li>
+<li><span style="font-variant: small-caps;">MinCostDP</span></li>
+<li><span style="font-variant: small-caps;">Greedy</span></li>
+<li><span style="font-variant: small-caps;">FPTAS</span></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "Serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/blacksteed232/vanilla.knapsack/edit/master/src/report/4-result.Rmd",
+"text": "Edit"
+},
+"download": ["report.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

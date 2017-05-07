@@ -1,0 +1,54 @@
+=========================
+PROBLEM: 3SAT 
+Number of Literals: 2
+Clauses:
+ $$(x_{0} \lor \bar{x}_{0} \lor \bar{x}_{1})
+$$=========================
+REDUCTION: Knapsack
+Budget: 111111111
+Target: 111111111
+Max Value: 100000100
+Item:
+  Value: 100000010, Cost: 100000010
+  Value: 100000100, Cost: 100000100
+  Value: 10000000, Cost: 10000000
+  Value: 10000001, Cost: 10000001
+  Value: 1000100, Cost: 1000100
+  Value: 1000000, Cost: 1000000
+  Value: 100110, Cost: 100110
+  Value: 100000, Cost: 100000
+  Value: 10011, Cost: 10011
+  Value: 10000, Cost: 10000
+  Value: 1001, Cost: 1001
+  Value: 1000, Cost: 1000
+=========================
+SOLUTION: Error: java.lang.OutOfMemoryError: Java heap space
+=========================
+
+=========================
+PROBLEM: 3SAT 
+Number of Literals: 4
+Clauses:
+ $$(x_{0} \lor \bar{x}_{1} \lor \bar{x}_{2})
+ \land (x_{0} \lor x_{2} \lor x_{3})
+$$=========================
+REDUCTION: Error: java.lang.NumberFormatException: For input string: "111111111111111111"
+=========================
+
+=========================
+PROBLEM: Knapsack
+Budget: 10
+Target: 5257
+Max Value: 6
+Item:
+  Value: 3, Cost: 2
+  Value: 4, Cost: 3
+  Value: 5, Cost: 4
+  Value: 6, Cost: 5
+=========================
+SOLUTION: Max Value DP: 13
+2-Approximation: 12
+Min Cost DP: 13
+FPTAS: 12
+=========================
+

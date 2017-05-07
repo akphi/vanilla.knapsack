@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vanilla Knapsack and Its Various Flavors</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Vanilla Knapsack and Its Various Flavors" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem." />
+  <meta name="github-repo" content="blacksteed232/vanilla.knapsack" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vanilla Knapsack and Its Various Flavors" />
+  
+  <meta name="twitter:description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem." />
+  
+
+<meta name="author" content="An Phi">
+
+
+<meta name="date" content="2017-05-07">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="methodology.html">
+<link rel="next" href="reduction.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>1</b> Methodology</a><ul>
+<li class="chapter" data-level="1.1" data-path="methodology.html"><a href="methodology.html#maximum-0-1-knapsack"><i class="fa fa-check"></i><b>1.1</b> Maximum 0-1 Knapsack</a></li>
+<li class="chapter" data-level="1.2" data-path="methodology.html"><a href="methodology.html#sat"><i class="fa fa-check"></i><b>1.2</b> 3SAT</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="algorithms.html"><a href="algorithms.html"><i class="fa fa-check"></i><b>2</b> Algorithms</a></li>
+<li class="chapter" data-level="3" data-path="reduction.html"><a href="reduction.html"><i class="fa fa-check"></i><b>3</b> Reduction, Beauty and Peril</a></li>
+<li class="chapter" data-level="4" data-path="resdis.html"><a href="resdis.html"><i class="fa fa-check"></i><b>4</b> Result and Discussion</a><ul>
+<li class="chapter" data-level="4.1" data-path="resdis.html"><a href="resdis.html#accuracy"><i class="fa fa-check"></i><b>4.1</b> Accuracy</a></li>
+<li class="chapter" data-level="4.2" data-path="resdis.html"><a href="resdis.html#running-time"><i class="fa fa-check"></i><b>4.2</b> Running Time</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Vanilla Knapsack and Its Various Flavors</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="algorithms" class="section level1">
+<h1><span class="header-section-number">Section 2</span> Algorithms</h1>
+<p>In this section, we will discuss each algorithms used in details; for a more thorough explanation and elegant proof for these algorithms, please refer to <em>What Is a Computer and What Can It Do?</em> by Thomas O’Connell.</p>
+<p>First, the standard <span style="font-variant: small-caps;">MaxValDP</span> algorithm (the vanilla flavor that we are all too familiar to hate) is really the most standard way we know to solve Maximum 0-1 Knapsack problem. It attempts to construct in bottom-up manner a table of dimension <span class="math inline">\(n \times B\)</span>, where each cell <span class="math inline">\(Cell[i][j]\)</span> gives the maximum value that can be achieved using item 1 to <span class="math inline">\(i\)</span> with budget <span class="math inline">\(j\)</span>. After the computation process, the bottom right-most cell of the table gives us the optimal value. The running time for this algorithm is <span class="math inline">\(\Theta(nB)\)</span>.</p>
+<p><span style="font-variant: small-caps;">Greedy</span> refers to the greedy 2-approximation algorithm that tackles the Maximum Fractional Knapsack version. As such, firstly, we sort the item in ascending order based on value/cost ratio. We continuously add items to the knapsack until it is full. There might be a case where we can actually just take the item with maximum value and use it instead. Here, we need to make an assumption that the budget is higher than the maximum cost of any item–<em>we have enforced this condition while generating the knapsack problem instance so we can safely make this assumption</em>. This algorithm’s running time depends on the running time of the sorting step and thus, it is <span class="math inline">\(\Theta(n\log{n})\)</span>.</p>
+<p><span style="font-variant: small-caps;">MinCostDP</span> deals with the MinCost version of the Maximum 0-1 Knapsack problem. Instead of looking for the set of item whose total costs does not reach the budget and whose value is the maximum, this version looks for set of item whose total values does not fall below the target value and whose budget is the minimum. As such, it employs the same strategy as <span style="font-variant: small-caps;">MaxValDP</span>. First, it constructs in bottom-up manner a table of dimension <span class="math inline">\(n \times nv_{max}\)</span>; hence the columns of this table lists out all possible values that different subsets of item can take. Each cell of the table, <span class="math inline">\(Cell[i][j]\)</span> gives the minimum budget required using item 1 to <span class="math inline">\(i\)</span> to achieve target value <span class="math inline">\(j\)</span>. After the computation process, we scan through the bottom row of the table and find the cell with maximum column index whose value equals to the budget. The running time for this algorithm is <span class="math inline">\(\Theta(n^2v_{max})\)</span>. As we can see, by changing the original problem slightly, we now put the burden of the running on the maximum value rather than the budget, like in <span style="font-variant: small-caps;">MaxValDP</span>.</p>
+<p><span style="font-variant: small-caps;">FPTAS</span> attempts to reduce the running time of <span style="font-variant: small-caps;">MinCostDP</span> at the cost of accuracy. It scales the items’ values down by a factor of <span class="math inline">\(\frac{\epsilon \times v_{max}}{n}\)</span>, where <span class="math inline">\(\epsilon\)</span> stands for the percentage of error allowed, and performs truncation to obtain a new integer value for each item. It then runs <span style="font-variant: small-caps;">MinCostDP</span> and the obtained result is then re-scaled. As such, the running time for this algorithm is <span class="math inline">\(\Theta(n^3\frac{1}{\epsilon})\)</span>. For this particular assignment, we want to set <span class="math inline">\(\epsilon\)</span> to 0.5, i.e. this should make <span style="font-variant: small-caps;">FPTAS</span> comparable to <span style="font-variant: small-caps;">Greedy</span> (2-approximation), thus we can compare the performance of these 2 algorithms.</p>
+<p>Here, we should note that since other than <span style="font-variant: small-caps;">Greedy</span>, other algorithms construct large table to perform dynamic programming. As such, this might set a limit on the size of input we use. As mentioned before in section <a href="resdis.html#resdis">4</a>, this puts an upper bound on the number of items used to 700. And yet, we will face this plaguing issue once again while performing the second experiment with 3SAT reduction, which will be discussed in the next section.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="methodology.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reduction.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "Serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/blacksteed232/vanilla.knapsack/edit/master/src/report/2-algorithms.Rmd",
+"text": "Edit"
+},
+"download": ["report.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+p {
+  text-align: justify;
+}
+/* caption */
+p.caption {
+  color: #777;
+  margin-top: 10px;
+  margin-bottom: 2em !important;
+  text-align: center;
+}
+table caption {
+  color: #777;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code { 
+  /*white-space: pre-wrap !important; */
+  white-space: inherit; 
+}
+p.flushright {
+  text-align: right;
+}
+blockquote > p:last-child {
+  text-align: right;
+}
+blockquote > p:first-child {
+  text-align: inherit;
+}
+.book .book-summary nav > ul.summary {
+  margin-top: 7px;
+}
+.header-section-number {
+  padding-right: .2em;
+  font-weight: 500;
+}
+.level1 > h1 > .header-section-number {
+  display: inline-block;
+  border-bottom: 3px solid;
+}
+.level1 h1 {
+  border-bottom: 1px solid;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal !important;
+}
+h1.title {
+  font-weight: 700;
+}
+.book .book-body .page-wrapper .page-inner section.normal strong {
+  font-weight: 500;
+}
+iframe {
+  width: 100%;
+  border: none;
+}
+/* Table hover */
+table tbody tr.odd:hover td {
+  background-color: #f6f6f6;
+}
+table tbody tr.even:hover td {
+  background-color: #f6f6f6;
+}
+/* Datatable tweak */
+/* Issue of misallignment between header and body column width
+http://stackoverflow.com/questions/17237812/datatable-jquery-table-header-width-not-aligned-with-body-width */
+.dataTables_scrollHead table.display.dataTable.no-footer {
+  table-layout: fixed;
+  margin-bottom: 0 !important;
+}
+table.display.dataTable.no-footer {
+  margin-bottom: 1em !important;
+}
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom-color: transparent; 
+}
+.dataTables_scroll .dataTables_scrollHead table.dataTable thead th {
+  padding: 6px 20px !important;
+}
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_length {
+  margin-bottom: 5px;
+}
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+  margin-top: 0;
+  margin-bottom: 2em;
+}  
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: #333 !important;
+  border: 1px solid #979797;
+  background: #ddd !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  box-shadow: none;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  color: #333 !important;
+  border: 1px solid #979797;
+  background: none !important;
+}

@@ -1,0 +1,107 @@
+# Result and Discussion {#resdis}
+```{r, echo = FALSE, message = FALSE, results = 'hide', warning = FALSE}
+data <- read.csv(mp(DATA_DIR, "data.csv"), stringsAsFactors = FALSE)
+value <- data[, c(1,2,3,4,6,8,10)]
+colnames(value) <- c("N", "Budget", "Max Value", "MaxValDP", "Greedy", "MinCostDP", "FPTAS")
+time <- data[, c(1,2,3,5,7,9,11)]
+colnames(time) <- c("N", "Budget", "Max Value", "MaxValDP", "Greedy", "MinCostDP", "FPTAS")
+```
+## Accuracy
+Below is the statistical summary for the values returned from the Knapsack experiments. 
+
+``` {r table-summary-value, include = TRUE, echo = FALSE, results = "asis"}
+value_summary <- summarize(value[ , c(4:7)])
+colnames(value_summary) <- c("Name", "Mean", "Median", "L.Quartile", "U.Quartile", "IQR", "Min", "Max")
+knitr::kable(
+  value_summary,
+  # caption = "Summmary of Accuracy",
+  # align = c("c", "l", "c"),
+  digits = 0,
+  booktabs = TRUE,
+  format = "markdown"
+)  
+```
+
+It is totally expected that <span style="font-variant:small-caps;">MaxValDP</span> and <span style="font-variant:small-caps;">MinCostDP</span> have equal accuracy since both are supposed to produce the optimal value for each instance. To compare the accuracy of <span style="font-variant:small-caps;">Greedy</span> and <span style="font-variant:small-caps;">FPTAS</span>, we should look at figure \@ref(fig:plot-value-error) of the error produced by these 2 algorithms. Note that in this plot, we omit the outliers whose values range outside 1.5 times of the inner quartile range (IQR).
+
+``` {r plot-value-error, include = TRUE, echo = FALSE, fig.cap='Error of FPTAS and Greedy algorithms', fig.show = 'asis', fig.align = 'center', fig.height = 4, fig.width = 6}
+error <- (value$MaxValDP - value[, c(5,7)])
+error <- do.call("rbind", lapply(seq(1,ncol(error),1), function(x) { return(data.frame(Algorithm = names(error)[x], Error = error[,x]))}))
+error_percentage <- ((value$MaxValDP - value[, c(5,7)]) / value$MaxValDP) * 100
+error_percentage <- do.call("rbind", lapply(seq(1,ncol(error_percentage),1), function(x) { return(data.frame(Algorithm = names(error_percentage)[x], Error = error_percentage[,x]))}))
+par(bg = BACKGROUND_COLOR)
+op = par(mfrow=c(1, 2))
+boxplot(as.formula("Error ~ Algorithm"), error, outline = FALSE, ylab = "Error")
+boxplot(as.formula("Error ~ Algorithm"), error_percentage, outline = FALSE, ylab = "% Error")
+par(op)
+```
+
+Clearly, <span style="font-variant:small-caps;">FPTAS</span> does a lot worse than <span style="font-variant:small-caps;">Greedy</span>. This is expected to us because <span style="font-variant:small-caps;">Greedy</span> is designed to obtain an optimal value in 50% range of the actual optimal value, while <span style="font-variant:small-caps;">FPTAS</span> is designed to work for arbitrary precision--in this case, we set $\epsilon$ to 0.5 which should also guarantee values in 50% range of the optimal value. To see the range of error that each algorithm produce, we can refer to the summary of percentage error below.
+
+``` {r table-summary-error, include = TRUE, echo = FALSE, results = "asis"}
+error_summary <- summarize(((value$MaxValDP - value[, c(5,7)]) / value$MaxValDP) * 100, 3)
+colnames(error_summary) <- c("Name", "Mean", "Median", "L.Quartile", "U.Quartile", "IQR", "Min", "Max")
+knitr::kable(
+  error_summary,
+  # caption = "Summmary of Accuracy",
+  # align = c("c", "l", "c"),
+  digits = 0,
+  booktabs = TRUE,
+  format = "markdown"
+)  
+```
+
+From both the plot and the table, we can see that both algorithms actually does much better than expected, the percentage error falls way below 50%. This might have to do with the way we **randomly** generate the problem instances, since it is often the edge case that results in the 50% error. Also, we can see that the maximum percentage error produced by <span style="font-variant:small-caps;">FPTAS</span> is way less than that of <span style="font-variant:small-caps;">Greedy</span>. This could be due to the mechanism of each algorithm. In section \@ref(algorithms), we mentioned that <span style="font-variant:small-caps;">Greedy</span> has a totally different approach to choose the items and has a final step where it might disregard previously obtained results and just choose the item with maximum value; whereas <span style="font-variant:small-caps;">FPTAS</span> essentially uses <span style="font-variant:small-caps;">MinCostDP</span> and its errors are due to the truncation while scaling up and down the values of items.
+
+
+
+
+
+## Running Time
+Next, we present the summary for the running time (milliseconds) of the 4 different algorithms.
+
+``` {r table-summary-time, include = TRUE, echo = FALSE, results = "asis"}
+# time_summary <- summarize(cbind(time[, c(1:3)], time[ , c(4:7)] / 1000000), 3)
+time_summary <- summarize(time[ , c(4:7)] / 1000000, 3)
+colnames(time_summary) <- c("Name", "Mean", "Median", "L.Quartile", "U.Quartile", "IQR", "Min", "Max")
+knitr::kable(
+  time_summary,
+  # caption = "Summmary of Accuracy",
+  # align = c("c", "l", "c"),
+  digits = 0,
+  booktabs = TRUE,
+  format = "markdown"
+)  
+```
+
+These are just the summary of the result. Beside these, for each problem instance, we also collect the number of items $N$, the budget, and the maximum value, as these might help us understand the running time results better. 
+
+``` {r table-summary-misc, include = TRUE, echo = FALSE, results = "asis"}
+# time_summary <- summarize(cbind(time[, c(1:3)], time[ , c(4:7)] / 1000000), 3)
+misc_summary <- summarize(time[, c(1:3)])
+colnames(misc_summary) <- c("Name", "Mean", "Median", "L.Quartile", "U.Quartile", "IQR", "Min", "Max")
+knitr::kable(
+  misc_summary,
+  # caption = "Summmary of Accuracy",
+  # align = c("c", "l", "c"),
+  digits = 0,
+  booktabs = TRUE,
+  format = "markdown"
+)  
+```
+
+Nonetheless, through the running time summary only, we can already see a general trend in running time. <span style="font-variant:small-caps;">Greedy</span> is the clear winner in terms of speed. We have mentioned in section \@ref(algorithms) that the running time of <span style="font-variant:small-caps;">Greedy</span> is majorly contributed by the sorting step--the choosing step after that is rather trivial. As such, the running time depends on the input size, not the values of the items, not the budget. 
+
+<span style="font-variant:small-caps;">MaxValDP</span> has a significantly higher running time as compared to that of <span style="font-variant:small-caps;">Greedy</span>. This is expected as we can see the in the summary of instance information, the budget is much larger than the number of instance.
+
+Another observation is that <span style="font-variant:small-caps;">FPTAS</span> and <span style="font-variant:small-caps;">MinCostDP</span> have almost similar running time. Again this can be explained by the fact that <span style="font-variant:small-caps;">FPTAS</span> uses <span style="font-variant:small-caps;">MinCostDP</span> internally. Their running time, though, is almost 3 times as big as that of <span style="font-variant:small-caps;">MaxValDP</span>. This totally depends on the choice of budget and the maximum value of item in the problem instance.
+
+``` {r plot-function, include = TRUE, echo = FALSE, fig.cap='Running time of MinCostDP (left) and MaxValDP (right)', fig.show = 'asis', fig.align = 'center', fig.height = 5, fig.width = 7.5}
+par(bg = BACKGROUND_COLOR)
+op = par(mfrow=c(1, 2))
+points3D(x = time$`Max Value`, y = time$N, z = time$MinCostDP, phi = -5, theta = 56, xlab = "Max Value", ylab = "N", zlab = "Optimal Value", bty = NULL, pch = 1, cex = 0.05, cex.lab = 0.6, colkey = FALSE, col = ramp.col (col = c(COLOR[["Blue"]], COLOR[["Red"]]), n = 100000, alpha = 1))
+points3D(x = time$Budget, y = time$N, z = time$MaxValDP, phi = -5, theta = 35, xlab = "Budget", ylab = "N", zlab = "Optimal Value", bty = NULL, pch = 1, cex = 0.05, cex.lab = 0.6, colkey = FALSE, col = ramp.col (col = c(COLOR[["Blue"]], COLOR[["Red"]]), n = 100000, alpha = 1))
+par(op)
+```
+
+Since we conduct the experiment with changing value of $N$, we can then make 3D plots of running time against $N$ and the budget for <span style="font-variant:small-caps;">MaxValDP</span> and running time against $N$ and the maximum value for <span style="font-variant:small-caps;">MinCostDP</span>. Refer to figure \@ref(fig:plot-function), for <span style="font-variant:small-caps;">MinCostDP</span>, based on the curvature of the plot surface, we can see that the relationship between $N$ and the optimal value is clearly non-linear, in fact, we can even see that it is indeed quadratic as mentioned in section \@ref(algorithms). Whereas, for <span style="font-variant:small-caps;">MaxValDP</span>, we can see that the budget and $N$ seem to be linearly related to the optimal value.

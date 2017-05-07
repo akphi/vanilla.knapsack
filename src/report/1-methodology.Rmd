@@ -1,0 +1,28 @@
+
+# Methodology {#methodology}
+As noted, there are 2 main parts to this project. First, we will explore the differences between 4 different algorithms to solve Maximum 0-1 Knapsack. For the sake of brevity, we will use abbreviations to shorten the names of these algorithms, whose details will be discussed more thoroughly in section \@ref(algorithms).
+
+* <span style="font-variant:small-caps;">MaxValDP</span> -- This refers to the *$\Theta(nB)$* standard _vanilla_ dynamic programming algorithm for the problem.
+* <span style="font-variant:small-caps;">MinCostDP</span> -- This refers to the *$\Theta(n^2v_{max})$* dynamic programming algorithm based on the MinCost version of the problem.
+* <span style="font-variant:small-caps;">Greedy</span> -- This refers to the greedy 2-approximation approach.
+* <span style="font-variant:small-caps;">FPTAS</span> -- This refers to the fully polynomial-time approximation scheme based on scaling with the optimal dynamic programming algorithm from <span style="font-variant:small-caps;">MinCostDP</span>.  
+
+As mentioned, we will attempt to explore how these different algorithms perform when used to solve the native Maximum 0-1 Knapsack problem, and 3SAT via the reduction from 3SAT to Decision 0-1 Knapsack. As such, to accommodate these objectives, we set up 2 workflows as presented in the subsections below.
+
+## Maximum 0-1 Knapsack
+
+For this experiment, we generate 100 random instances of Maximum 0-1 Knapsack problem. We specify several constrains to the problem, such as:
+
+* Each problem instance contains $N$ item(s).
+* Each item's value is an integer not exceeding 1000.
+* Each item's cost is an integer not exceeding 1000.
+
+Since we are also interested in exploring the running time of each algorithm, we decide that we will vary $N$ within a range of values. By experiment, we found out that 700 items is probably the upper bound for the number of items we can have given the constraints for each item's maximum cost and value, otherwise our machine will run out of memory. We try for relatively small $N$ starting from 10 and increment by 10 per iteration, i.e. $N \in \{10, 20 \ldots 690, 700\}$. As for the maximum value of each item's cost and value, because these just indicate the upper bounds for the cost and value of each item, there is little value in varying them.
+
+For each problem instance, we solve them using the 4 mentioned algorithms and record the optimal values obtained as well as the running times.
+
+## 3SAT
+
+For this experiment, we plan to generate 100 random instances of 3SAT problem. For each, we reduce from 3SAT to 1in3SAT, to SubsetSum, and finally to Decision 0-1 Knapsack [@oconnell2013]. For the reduction from SubsetSum to Decision 0-1 Knapsack, we obtain an usual Knapsack problem where the budget and the target value are identical and where each item's cost and value are identical. We thus, can use <span style="font-variant:small-caps;">MaxValDP</span> and <span style="font-variant:small-caps;">MinCostDP</span> to find the optimal value. This values is then compared with the target value to decide if the original 3SAT problem instance is satisfiable. The reason why we cannot use <span style="font-variant:small-caps;">Greedy</span> nor <span style="font-variant:small-caps;">FPTAS</span> is that we need the optimal value (with no error) to compare with the target.
+
+The procedure seems clear and indeed, we were able to produce the corresponding Decision 0-1 Knapsack for a given instance of 3SAT problem, but we face an interesting problem, which halts our further progress in this experiment. We will discuss this in section \@ref(reduction), _Reduction, Beauty and Peril_.

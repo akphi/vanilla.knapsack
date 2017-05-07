@@ -1,0 +1,11 @@
+Package:  vanilla.knapsack
+Version:  0.0.1
+Date:  2017-02-23
+Depends:  R (>= 3.0.0)
+Imports: bookdown
+Remotes: rstudio/bookdown
+Title:  Knapsack Vanilla and Its Various Flavors
+Author:  An Phi <aphi@skidmore.edu>
+Maintainer:  An Phi <aphi@skidmore.edu>
+Description:  Experiment on different algorithm to solve Maximum 0-1 Knapsack.
+URL: https://github.com/blacksteed232/vanilla.knapsack

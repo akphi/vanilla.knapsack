@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vanilla Knapsack and Its Various Flavors</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Vanilla Knapsack and Its Various Flavors" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem." />
+  <meta name="github-repo" content="blacksteed232/vanilla.knapsack" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vanilla Knapsack and Its Various Flavors" />
+  
+  <meta name="twitter:description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem." />
+  
+
+<meta name="author" content="An Phi">
+
+
+<meta name="date" content="2017-05-07">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="algorithms.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>1</b> Methodology</a><ul>
+<li class="chapter" data-level="1.1" data-path="methodology.html"><a href="methodology.html#maximum-0-1-knapsack"><i class="fa fa-check"></i><b>1.1</b> Maximum 0-1 Knapsack</a></li>
+<li class="chapter" data-level="1.2" data-path="methodology.html"><a href="methodology.html#sat"><i class="fa fa-check"></i><b>1.2</b> 3SAT</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="algorithms.html"><a href="algorithms.html"><i class="fa fa-check"></i><b>2</b> Algorithms</a></li>
+<li class="chapter" data-level="3" data-path="reduction.html"><a href="reduction.html"><i class="fa fa-check"></i><b>3</b> Reduction, Beauty and Peril</a></li>
+<li class="chapter" data-level="4" data-path="resdis.html"><a href="resdis.html"><i class="fa fa-check"></i><b>4</b> Result and Discussion</a><ul>
+<li class="chapter" data-level="4.1" data-path="resdis.html"><a href="resdis.html#accuracy"><i class="fa fa-check"></i><b>4.1</b> Accuracy</a></li>
+<li class="chapter" data-level="4.2" data-path="resdis.html"><a href="resdis.html#running-time"><i class="fa fa-check"></i><b>4.2</b> Running Time</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Vanilla Knapsack and Its Various Flavors</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="methodology" class="section level1">
+<h1><span class="header-section-number">Section 1</span> Methodology</h1>
+<p>As noted, there are 2 main parts to this project. First, we will explore the differences between 4 different algorithms to solve Maximum 0-1 Knapsack. For the sake of brevity, we will use abbreviations to shorten the names of these algorithms, whose details will be discussed more thoroughly in section <a href="algorithms.html#algorithms">2</a>.</p>
+<ul>
+<li><span style="font-variant: small-caps;">MaxValDP</span> – This refers to the <em><span class="math inline">\(\Theta(nB)\)</span></em> standard <em>vanilla</em> dynamic programming algorithm for the problem.</li>
+<li><span style="font-variant: small-caps;">MinCostDP</span> – This refers to the <em><span class="math inline">\(\Theta(n^2v_{max})\)</span></em> dynamic programming algorithm based on the MinCost version of the problem.</li>
+<li><span style="font-variant: small-caps;">Greedy</span> – This refers to the greedy 2-approximation approach.</li>
+<li><span style="font-variant: small-caps;">FPTAS</span> – This refers to the fully polynomial-time approximation scheme based on scaling with the optimal dynamic programming algorithm from <span style="font-variant: small-caps;">MinCostDP</span>.</li>
+</ul>
+<p>As mentioned, we will attempt to explore how these different algorithms perform when used to solve the native Maximum 0-1 Knapsack problem, and 3SAT via the reduction from 3SAT to Decision 0-1 Knapsack. As such, to accommodate these objectives, we set up 2 workflows as presented in the subsections below.</p>
+<div id="maximum-0-1-knapsack" class="section level2">
+<h2><span class="header-section-number">1.1</span> Maximum 0-1 Knapsack</h2>
+<p>For this experiment, we generate 100 random instances of Maximum 0-1 Knapsack problem. We specify several constrains to the problem, such as:</p>
+<ul>
+<li>Each problem instance contains <span class="math inline">\(N\)</span> item(s).</li>
+<li>Each item’s value is an integer not exceeding 1000.</li>
+<li>Each item’s cost is an integer not exceeding 1000.</li>
+</ul>
+<p>Since we are also interested in exploring the running time of each algorithm, we decide that we will vary <span class="math inline">\(N\)</span> within a range of values. By experiment, we found out that 700 items is probably the upper bound for the number of items we can have given the constraints for each item’s maximum cost and value, otherwise our machine will run out of memory. We try for relatively small <span class="math inline">\(N\)</span> starting from 10 and increment by 10 per iteration, i.e. <span class="math inline">\(N \in \{10, 20 \ldots 690, 700\}\)</span>. As for the maximum value of each item’s cost and value, because these just indicate the upper bounds for the cost and value of each item, there is little value in varying them.</p>
+<p>For each problem instance, we solve them using the 4 mentioned algorithms and record the optimal values obtained as well as the running times.</p>
+</div>
+<div id="sat" class="section level2">
+<h2><span class="header-section-number">1.2</span> 3SAT</h2>
+<p>For this experiment, we plan to generate 100 random instances of 3SAT problem. For each, we reduce from 3SAT to 1in3SAT, to SubsetSum, and finally to Decision 0-1 Knapsack <span class="citation">(O’Connell <a href="#ref-oconnell2013">2013</a>)</span>. For the reduction from SubsetSum to Decision 0-1 Knapsack, we obtain an usual Knapsack problem where the budget and the target value are identical and where each item’s cost and value are identical. We thus, can use <span style="font-variant: small-caps;">MaxValDP</span> and <span style="font-variant: small-caps;">MinCostDP</span> to find the optimal value. This values is then compared with the target value to decide if the original 3SAT problem instance is satisfiable. The reason why we cannot use <span style="font-variant: small-caps;">Greedy</span> nor <span style="font-variant: small-caps;">FPTAS</span> is that we need the optimal value (with no error) to compare with the target.</p>
+<p>The procedure seems clear and indeed, we were able to produce the corresponding Decision 0-1 Knapsack for a given instance of 3SAT problem, but we face an interesting problem, which halts our further progress in this experiment. We will discuss this in section <a href="reduction.html#reduction">3</a>, <em>Reduction, Beauty and Peril</em>.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-oconnell2013">
+<p>O’Connell, Thomas C. 2013. <em>What Is a Computer and What Can It Do?</em> 1st ed. Milton Keynes, UK: College Publications.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="algorithms.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "Serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/blacksteed232/vanilla.knapsack/edit/master/src/report/1-methodology.Rmd",
+"text": "Edit"
+},
+"download": ["report.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

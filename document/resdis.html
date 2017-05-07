@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vanilla Knapsack and Its Various Flavors</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Vanilla Knapsack and Its Various Flavors" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem." />
+  <meta name="github-repo" content="blacksteed232/vanilla.knapsack" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vanilla Knapsack and Its Various Flavors" />
+  
+  <meta name="twitter:description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem." />
+  
+
+<meta name="author" content="An Phi">
+
+
+<meta name="date" content="2017-05-07">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="reduction.html">
+<link rel="next" href="conclusion.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>1</b> Methodology</a><ul>
+<li class="chapter" data-level="1.1" data-path="methodology.html"><a href="methodology.html#maximum-0-1-knapsack"><i class="fa fa-check"></i><b>1.1</b> Maximum 0-1 Knapsack</a></li>
+<li class="chapter" data-level="1.2" data-path="methodology.html"><a href="methodology.html#sat"><i class="fa fa-check"></i><b>1.2</b> 3SAT</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="algorithms.html"><a href="algorithms.html"><i class="fa fa-check"></i><b>2</b> Algorithms</a></li>
+<li class="chapter" data-level="3" data-path="reduction.html"><a href="reduction.html"><i class="fa fa-check"></i><b>3</b> Reduction, Beauty and Peril</a></li>
+<li class="chapter" data-level="4" data-path="resdis.html"><a href="resdis.html"><i class="fa fa-check"></i><b>4</b> Result and Discussion</a><ul>
+<li class="chapter" data-level="4.1" data-path="resdis.html"><a href="resdis.html#accuracy"><i class="fa fa-check"></i><b>4.1</b> Accuracy</a></li>
+<li class="chapter" data-level="4.2" data-path="resdis.html"><a href="resdis.html#running-time"><i class="fa fa-check"></i><b>4.2</b> Running Time</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Vanilla Knapsack and Its Various Flavors</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="resdis" class="section level1">
+<h1><span class="header-section-number">Section 4</span> Result and Discussion</h1>
+<div id="accuracy" class="section level2">
+<h2><span class="header-section-number">4.1</span> Accuracy</h2>
+<p>Below is the statistical summary for the values returned from the Knapsack experiments.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Mean</th>
+<th align="left">Median</th>
+<th align="left">L.Quartile</th>
+<th align="left">U.Quartile</th>
+<th align="left">IQR</th>
+<th align="left">Min</th>
+<th align="left">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MaxValDP</td>
+<td align="left">131586</td>
+<td align="left">117691</td>
+<td align="left">55673</td>
+<td align="left">196774</td>
+<td align="left">141102</td>
+<td align="left">1736</td>
+<td align="left">361083</td>
+</tr>
+<tr class="even">
+<td align="left">Greedy</td>
+<td align="left">131553</td>
+<td align="left">117650</td>
+<td align="left">55634</td>
+<td align="left">196754</td>
+<td align="left">141120</td>
+<td align="left">1706</td>
+<td align="left">361060</td>
+</tr>
+<tr class="odd">
+<td align="left">MinCostDP</td>
+<td align="left">131586</td>
+<td align="left">117691</td>
+<td align="left">55673</td>
+<td align="left">196774</td>
+<td align="left">141102</td>
+<td align="left">1736</td>
+<td align="left">361083</td>
+</tr>
+<tr class="even">
+<td align="left">FPTAS</td>
+<td align="left">131437</td>
+<td align="left">117545</td>
+<td align="left">55555</td>
+<td align="left">196629</td>
+<td align="left">141074</td>
+<td align="left">1706</td>
+<td align="left">360857</td>
+</tr>
+</tbody>
+</table>
+<p>It is totally expected that <span style="font-variant: small-caps;">MaxValDP</span> and <span style="font-variant: small-caps;">MinCostDP</span> have equal accuracy since both are supposed to produce the optimal value for each instance. To compare the accuracy of <span style="font-variant: small-caps;">Greedy</span> and <span style="font-variant: small-caps;">FPTAS</span>, we should look at figure <a href="resdis.html#fig:plot-value-error">4.1</a> of the error produced by these 2 algorithms. Note that in this plot, we omit the outliers whose values range outside 1.5 times of the inner quartile range (IQR).</p>
+<div class="figure" style="text-align: center"><span id="fig:plot-value-error"></span>
+<img src="report_files/figure-html/plot-value-error-1.png" alt="Error of FPTAS and Greedy algorithms" width="576" />
+<p class="caption">
+Figure 4.1: Error of FPTAS and Greedy algorithms
+</p>
+</div>
+<p>Clearly, <span style="font-variant: small-caps;">FPTAS</span> does a lot worse than <span style="font-variant: small-caps;">Greedy</span>. This is expected to us because <span style="font-variant: small-caps;">Greedy</span> is designed to obtain an optimal value in 50% range of the actual optimal value, while <span style="font-variant: small-caps;">FPTAS</span> is designed to work for arbitrary precision–in this case, we set <span class="math inline">\(\epsilon\)</span> to 0.5 which should also guarantee values in 50% range of the optimal value. To see the range of error that each algorithm produce, we can refer to the summary of percentage error below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Mean</th>
+<th align="left">Median</th>
+<th align="left">L.Quartile</th>
+<th align="left">U.Quartile</th>
+<th align="left">IQR</th>
+<th align="left">Min</th>
+<th align="left">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Greedy</td>
+<td align="left">0.096</td>
+<td align="left">0.014</td>
+<td align="left">0.001</td>
+<td align="left">0.047</td>
+<td align="left">0.046</td>
+<td align="left">0</td>
+<td align="left">16.935</td>
+</tr>
+<tr class="even">
+<td align="left">FPTAS</td>
+<td align="left">0.26</td>
+<td align="left">0.111</td>
+<td align="left">0.074</td>
+<td align="left">0.22</td>
+<td align="left">0.145</td>
+<td align="left">0</td>
+<td align="left">7.02</td>
+</tr>
+</tbody>
+</table>
+<p>From both the plot and the table, we can see that both algorithms actually does much better than expected, the percentage error falls way below 50%. This might have to do with the way we <strong>randomly</strong> generate the problem instances, since it is often the edge case that results in the 50% error. Also, we can see that the maximum percentage error produced by <span style="font-variant: small-caps;">FPTAS</span> is way less than that of <span style="font-variant: small-caps;">Greedy</span>. This could be due to the mechanism of each algorithm. In section <a href="algorithms.html#algorithms">2</a>, we mentioned that <span style="font-variant: small-caps;">Greedy</span> has a totally different approach to choose the items and has a final step where it might disregard previously obtained results and just choose the item with maximum value; whereas <span style="font-variant: small-caps;">FPTAS</span> essentially uses <span style="font-variant: small-caps;">MinCostDP</span> and its errors are due to the truncation while scaling up and down the values of items.</p>
+</div>
+<div id="running-time" class="section level2">
+<h2><span class="header-section-number">4.2</span> Running Time</h2>
+<p>Next, we present the summary for the running time (milliseconds) of the 4 different algorithms.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Mean</th>
+<th align="left">Median</th>
+<th align="left">L.Quartile</th>
+<th align="left">U.Quartile</th>
+<th align="left">IQR</th>
+<th align="left">Min</th>
+<th align="left">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MaxValDP</td>
+<td align="left">151.532</td>
+<td align="left">68.02</td>
+<td align="left">14.452</td>
+<td align="left">224.857</td>
+<td align="left">210.406</td>
+<td align="left">0.038</td>
+<td align="left">956.868</td>
+</tr>
+<tr class="even">
+<td align="left">Greedy</td>
+<td align="left">0.071</td>
+<td align="left">0.073</td>
+<td align="left">0.038</td>
+<td align="left">0.1</td>
+<td align="left">0.062</td>
+<td align="left">0.006</td>
+<td align="left">1.233</td>
+</tr>
+<tr class="odd">
+<td align="left">MinCostDP</td>
+<td align="left">419.992</td>
+<td align="left">282.004</td>
+<td align="left">54.472</td>
+<td align="left">725.475</td>
+<td align="left">671.003</td>
+<td align="left">0.179</td>
+<td align="left">1508.587</td>
+</tr>
+<tr class="even">
+<td align="left">FPTAS</td>
+<td align="left">480.643</td>
+<td align="left">192.605</td>
+<td align="left">19.364</td>
+<td align="left">860.974</td>
+<td align="left">841.61</td>
+<td align="left">0.018</td>
+<td align="left">2242.264</td>
+</tr>
+</tbody>
+</table>
+<p>These are just the summary of the result. Beside these, for each problem instance, we also collect the number of items <span class="math inline">\(N\)</span>, the budget, and the maximum value, as these might help us understand the running time results better.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Mean</th>
+<th align="left">Median</th>
+<th align="left">L.Quartile</th>
+<th align="left">U.Quartile</th>
+<th align="left">IQR</th>
+<th align="left">Min</th>
+<th align="left">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">N</td>
+<td align="left">355</td>
+<td align="left">355</td>
+<td align="left">180</td>
+<td align="left">530</td>
+<td align="left">350</td>
+<td align="left">10</td>
+<td align="left">700</td>
+</tr>
+<tr class="even">
+<td align="left">Budget</td>
+<td align="left">88645</td>
+<td align="left">66829</td>
+<td align="left">25605</td>
+<td align="left">134347</td>
+<td align="left">108742</td>
+<td align="left">877</td>
+<td align="left">341526</td>
+</tr>
+<tr class="odd">
+<td align="left">Max Value</td>
+<td align="left">994</td>
+<td align="left">998</td>
+<td align="left">995</td>
+<td align="left">1000</td>
+<td align="left">5</td>
+<td align="left">642</td>
+<td align="left">1000</td>
+</tr>
+</tbody>
+</table>
+<p>Nonetheless, through the running time summary only, we can already see a general trend in running time. <span style="font-variant: small-caps;">Greedy</span> is the clear winner in terms of speed. We have mentioned in section <a href="algorithms.html#algorithms">2</a> that the running time of <span style="font-variant: small-caps;">Greedy</span> is majorly contributed by the sorting step–the choosing step after that is rather trivial. As such, the running time depends on the input size, not the values of the items, not the budget.</p>
+<p><span style="font-variant: small-caps;">MaxValDP</span> has a significantly higher running time as compared to that of <span style="font-variant: small-caps;">Greedy</span>. This is expected as we can see the in the summary of instance information, the budget is much larger than the number of instance.</p>
+<p>Another observation is that <span style="font-variant: small-caps;">FPTAS</span> and <span style="font-variant: small-caps;">MinCostDP</span> have almost similar running time. Again this can be explained by the fact that <span style="font-variant: small-caps;">FPTAS</span> uses <span style="font-variant: small-caps;">MinCostDP</span> internally. Their running time, though, is almost 3 times as big as that of <span style="font-variant: small-caps;">MaxValDP</span>. This totally depends on the choice of budget and the maximum value of item in the problem instance.</p>
+<div class="figure" style="text-align: center"><span id="fig:plot-function"></span>
+<img src="report_files/figure-html/plot-function-1.png" alt="Running time of MinCostDP (left) and MaxValDP (right)" width="720" />
+<p class="caption">
+Figure 4.2: Running time of MinCostDP (left) and MaxValDP (right)
+</p>
+</div>
+<p>Since we conduct the experiment with changing value of <span class="math inline">\(N\)</span>, we can then make 3D plots of running time against <span class="math inline">\(N\)</span> and the budget for <span style="font-variant: small-caps;">MaxValDP</span> and running time against <span class="math inline">\(N\)</span> and the maximum value for <span style="font-variant: small-caps;">MinCostDP</span>. Refer to figure <a href="resdis.html#fig:plot-function">4.2</a>, for <span style="font-variant: small-caps;">MinCostDP</span>, based on the curvature of the plot surface, we can see that the relationship between <span class="math inline">\(N\)</span> and the optimal value is clearly non-linear, in fact, we can even see that it is indeed quadratic as mentioned in section <a href="algorithms.html#algorithms">2</a>. Whereas, for <span style="font-variant: small-caps;">MaxValDP</span>, we can see that the budget and <span class="math inline">\(N\)</span> seem to be linearly related to the optimal value.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "Serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/blacksteed232/vanilla.knapsack/edit/master/src/report/4-result.Rmd",
+"text": "Edit"
+},
+"download": ["report.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

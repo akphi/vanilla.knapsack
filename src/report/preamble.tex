@@ -1,0 +1,46 @@
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage[dvipsnames,table,xcdraw]{xcolor}
+\usepackage[breakable, theorems, skins]{tcolorbox}
+
+% color palette
+\definecolor{Azure}{rgb}{0.0, 0.5, 1.0}
+
+\makeatletter
+% adjust theorem spacing
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+
+% colorie hyperlink
+\hypersetup{
+    colorlinks=true,
+    citecolor={black},
+    linkcolor={black},
+    menucolor={black},
+    urlcolor={Azure}
+}
+
+% make function greybox
+\DeclareRobustCommand{\greybox}[2][gray!10]{%
+\begin{tcolorbox}[   %% Adjust the following parameters at will.
+        breakable,
+        left=0pt,
+        right=0pt,
+        top=0pt,
+        bottom=0pt,
+        colback=#1,
+        colframe=#1,
+        width=\dimexpr\textwidth\relax, 
+        enlarge left by=0mm,
+        boxsep=5pt,
+        arc=0pt,outer arc=0pt,
+        ]
+        #2
+\end{tcolorbox}
+}
+
+\makeatother

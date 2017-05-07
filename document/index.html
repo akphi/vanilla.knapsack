@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vanilla Knapsack and Its Various Flavors</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Vanilla Knapsack and Its Various Flavors" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem." />
+  <meta name="github-repo" content="blacksteed232/vanilla.knapsack" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vanilla Knapsack and Its Various Flavors" />
+  
+  <meta name="twitter:description" content="This project explores different approaches to the familiar Maximum 0-1 Knapsack problem." />
+  
+
+<meta name="author" content="An Phi">
+
+
+<meta name="date" content="2017-05-07">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+
+<link rel="next" href="methodology.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>1</b> Methodology</a><ul>
+<li class="chapter" data-level="1.1" data-path="methodology.html"><a href="methodology.html#maximum-0-1-knapsack"><i class="fa fa-check"></i><b>1.1</b> Maximum 0-1 Knapsack</a></li>
+<li class="chapter" data-level="1.2" data-path="methodology.html"><a href="methodology.html#sat"><i class="fa fa-check"></i><b>1.2</b> 3SAT</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="algorithms.html"><a href="algorithms.html"><i class="fa fa-check"></i><b>2</b> Algorithms</a></li>
+<li class="chapter" data-level="3" data-path="reduction.html"><a href="reduction.html"><i class="fa fa-check"></i><b>3</b> Reduction, Beauty and Peril</a></li>
+<li class="chapter" data-level="4" data-path="resdis.html"><a href="resdis.html"><i class="fa fa-check"></i><b>4</b> Result and Discussion</a><ul>
+<li class="chapter" data-level="4.1" data-path="resdis.html"><a href="resdis.html#accuracy"><i class="fa fa-check"></i><b>4.1</b> Accuracy</a></li>
+<li class="chapter" data-level="4.2" data-path="resdis.html"><a href="resdis.html#running-time"><i class="fa fa-check"></i><b>4.2</b> Running Time</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Vanilla Knapsack and Its Various Flavors</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Vanilla Knapsack and Its Various Flavors</h1>
+<h4 class="author"><em>An Phi</em></h4>
+<h4 class="date"><em>2017-05-07</em></h4>
+</div>
+<div id="introduction" class="section level1 unnumbered">
+<h1>Introduction</h1>
+<p>In this project, we explore several different algorithms (flavors) to solve Maximum 0-1 Knapsack, a classic NP-Hard problem, <em>in a reasonable amount of time</em>. In our experiments, we want to show the difference between running time and the optimal value obtained using these various algorithms.</p>
+<p>We also want to take a side-track and demonstrate how Maximum 0-1 Knapsack can be used to solve 3SAT, the iconic NP-Complete problem, via the polynomial time reduction from 3SAT to Decision 0-1 Knapsack <span class="citation">(O’Connell <a href="#ref-oconnell2013">2013</a>)</span>.</p>
+<p>We are going to explore 4 different flavors of Knapsack solver, including:</p>
+<ul>
+<li>Maximum Value Dynamic Programming</li>
+<li>Minimum Cost Dynamic Programming</li>
+<li>Greedy 2-Approximation</li>
+<li>Fully Polynomial-time Approximation Scheme</li>
+</ul>
+
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-oconnell2013">
+<p>O’Connell, Thomas C. 2013. <em>What Is a Computer and What Can It Do?</em> 1st ed. Milton Keynes, UK: College Publications.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="methodology.html" class="navigation navigation-next navigation-unique" aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "Serif",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/blacksteed232/vanilla.knapsack/edit/master/src/report/index.Rmd",
+"text": "Edit"
+},
+"download": ["report.pdf"],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

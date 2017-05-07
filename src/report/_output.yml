@@ -1,0 +1,29 @@
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+    before_body: body_prefix.tex
+  latex_engine: pdflatex
+  citation_package: natbib
+  keep_tex: yes
+  # fig_caption: true
+  highlight: zenburn
+  toc: no
+  template: template.tex
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      scroll_highlight: yes
+      before: null
+      after: null
+      # before: |
+      #   <li><a href="./">Home Page</a></li>
+      # after: |
+      #   <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with Bookdown</a></li>
+    edit: https://github.com/blacksteed232/vanilla.knapsack/edit/master/src/report/%s
+    download: [pdf]
+    sharing: false
+    fontsettings:
+      theme: white # this does not seem to work!
+      family: Serif
+      size: 2
