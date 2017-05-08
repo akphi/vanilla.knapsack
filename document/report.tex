@@ -170,11 +170,11 @@
 \chapter*{Introduction}\label{introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
-In this project, we explore several different algorithms (flavors) to
-solve Maximum 0-1 Knapsack, a classic NP-Hard problem, \emph{in a
+In this project, we shall explore several different algorithms (flavors)
+to solve Maximum 0-1 Knapsack, a classic NP-Hard problem, \emph{in a
 reasonable amount of time}. In our experiments, we want to show the
-difference between running time and the optimal value obtained using
-these various algorithms.
+differences between the running time and the optimal values obtained
+using these various algorithms.
 
 We also want to take a side-track and demonstrate how Maximum 0-1
 Knapsack can be used to solve 3SAT, the iconic NP-Complete problem, via
@@ -245,17 +245,15 @@ Knapsack problem. We specify several constrains to the problem, such as:
 Since we are also interested in exploring the running time of each
 algorithm, we decide that we will vary \(N\) within a range of values.
 By experiment, we found out that 700 items is probably the upper bound
-for the number of items we can have given the constraints for each
-item's maximum cost and value, otherwise our machine will run out of
-memory. We try for relatively small \(N\) starting from 10 and increment
-by 10 per iteration, i.e. \(N \in \{10, 20 \ldots 690, 700\}\). As for
-the maximum value of each item's cost and value, because these just
-indicate the upper bounds for the cost and value of each item, there is
-little value in varying them.
-
-For each problem instance, we solve them using the 4 mentioned
-algorithms and record the optimal values obtained as well as the running
-times.
+for the number of items we can have given the constraints on each item's
+maximum cost and value, otherwise our machine will run out of memory. We
+try for relatively small \(N\) starting from 10 and increment by 10 per
+iteration, i.e. \(N \in \{10, 20 \ldots 690, 700\}\). As for the maximum
+value of each item's cost and value, because these just indicate the
+upper bounds for the cost and value of each item, there is little value
+in varying them. In short, for each problem instance, we will solve it
+using the 4 mentioned algorithms and record the optimal values obtained
+as well as the running times.
 
 \section{3SAT}\label{sat}
 
@@ -268,25 +266,25 @@ each item's cost and value are identical. We thus, can use
 \textsc{MaxValDP} and \textsc{MinCostDP} to find the optimal value. This
 values is then compared with the target value to decide if the original
 3SAT problem instance is satisfiable. The reason why we cannot use
-\textsc{Greedy} nor \textsc{FPTAS} is that we need the optimal value
-(with no error) to compare with the target.
+\textsc{Greedy} nor \textsc{FPTAS} is that we need the exact optimal
+value (with no error) to compare with the target.
 
 The procedure seems clear and indeed, we were able to produce the
 corresponding Decision 0-1 Knapsack for a given instance of 3SAT
-problem, but we face an interesting problem, which halts our further
+problem, but we face an interesting problem, which halts any further
 progress in this experiment. We will discuss this in section
 \ref{reduction}, \emph{Reduction, Beauty and Peril}.
 
 \chapter{Algorithms}\label{algorithms}
 
 In this section, we will discuss each algorithms used in details; for a
-more thorough explanation and elegant proof for these algorithms, please
-refer to \emph{What Is a Computer and What Can It Do?} by Thomas
+more thorough explanation and elegant proofs for these algorithms, we
+highly recommend \emph{What Is a Computer and What Can It Do?} by Thomas
 O'Connell.
 
 First, the standard \textsc{MaxValDP} algorithm (the vanilla flavor that
 we are all too familiar to hate) is really the most standard way we know
-to solve Maximum 0-1 Knapsack problem. It attempts to construct in
+to solve the Maximum 0-1 Knapsack problem. It attempts to construct in
 bottom-up manner a table of dimension \(n \times B\), where each cell
 \(Cell[i][j]\) gives the maximum value that can be achieved using item 1
 to \(i\) with budget \(j\). After the computation process, the bottom
@@ -296,19 +294,19 @@ time for this algorithm is \(\Theta(nB)\).
 \textsc{Greedy} refers to the greedy 2-approximation algorithm that
 tackles the Maximum Fractional Knapsack version. As such, firstly, we
 sort the item in ascending order based on value/cost ratio. We
-continuously add items to the knapsack until it is full. There might be
-a case where we can actually just take the item with maximum value and
-use it instead. Here, we need to make an assumption that the budget is
-higher than the maximum cost of any item--\emph{we have enforced this
-condition while generating the knapsack problem instance so we can
-safely make this assumption}. This algorithm's running time depends on
-the running time of the sorting step and thus, it is
-\(\Theta(n\log{n})\).
+continuously add items to the knapsack until it is full. In the end, we
+have to check the value of the most valuable item as there might be a
+case where we can actually just take this item instead. Here, we need to
+make an assumption that the budget is higher than the maximum cost of
+any item--\emph{we have enforced this condition while generating the
+knapsack problem instance so we can safely make this assumption}. This
+algorithm's running time depends on the running time of the sorting step
+and thus, it is \(\Theta(n\log{n})\).
 
 \textsc{MinCostDP} deals with the MinCost version of the Maximum 0-1
 Knapsack problem. Instead of looking for the set of item whose total
-costs does not reach the budget and whose value is the maximum, this
-version looks for set of item whose total values does not fall below the
+cost does not reach the budget and whose value is the maximum, this
+version looks for set of item whose total value does not fall below the
 target value and whose budget is the minimum. As such, it employs the
 same strategy as \textsc{MaxValDP}. First, it constructs in bottom-up
 manner a table of dimension \(n \times nv_{max}\); hence the columns of
@@ -319,7 +317,7 @@ After the computation process, we scan through the bottom row of the
 table and find the cell with maximum column index whose value equals to
 the budget. The running time for this algorithm is
 \(\Theta(n^2v_{max})\). As we can see, by changing the original problem
-slightly, we now put the burden of the running on the maximum value
+slightly, we now put the burden to the running on the maximum value
 rather than the budget, like in \textsc{MaxValDP}.
 
 \textsc{FPTAS} attempts to reduce the running time of \textsc{MinCostDP}
@@ -328,59 +326,60 @@ at the cost of accuracy. It scales the items' values down by a factor of
 percentage of error allowed, and performs truncation to obtain a new
 integer value for each item. It then runs \textsc{MinCostDP} and the
 obtained result is then re-scaled. As such, the running time for this
-algorithm is \(\Theta(n^3\frac{1}{\epsilon})\). For this particular
-assignment, we want to set \(\epsilon\) to 0.5, i.e.~this should make
+algorithm is \(\Theta(n^3\frac{1}{\epsilon})\). For our particular
+experiments, we want to set \(\epsilon\) to 0.5, i.e.~this should make
 \textsc{FPTAS} comparable to \textsc{Greedy} (2-approximation), thus we
 can compare the performance of these 2 algorithms.
 
-Here, we should note that since other than \textsc{Greedy}, other
-algorithms construct large table to perform dynamic programming. As
-such, this might set a limit on the size of input we use. As mentioned
-before in section \ref{resdis}, this puts an upper bound on the number
-of items used to 700. And yet, we will face this plaguing issue once
-again while performing the second experiment with 3SAT reduction, which
-will be discussed in the next section.
+Here, we should note that except for \textsc{Greedy}, other algorithms
+construct large table to perform dynamic programming. As such, this
+might set a limit on the size of input we use. As mentioned before in
+section \ref{methodology}, this puts an upper bound on the number of
+items used to 700. And yet, we will face this plaguing issue once again
+while performing the second experiment with 3SAT reduction, which will
+be discussed in the next section.
 
 \chapter{Reduction, Beauty and Peril}\label{reduction}
 
-Initially, we tried to generate 100 large instances of 3SAT and try to
+Initially, we try to generate 100 large instances of 3SAT and try to
 reduce those to Decision 0-1 Knapsack and use either \textsc{MaxValDP}
-or \textsc{MinCostDP} to solve them. Nevertheless, we face problems with
-memory. This ceases any further attempts we made. We found 2
-optimization that potentially allows us to have instances of 3SAT with
-just 1 clause working, but we deem this as minimal and not actually put
-in effort to execute that. We will give our excuse for this \emph{sloth}
-later in this section.
+or \textsc{MinCostDP} to solve them. Nevertheless, we face some problems
+with memory. This ceases any further attempts we made. We found 2
+optimizations that potentially allow us to have instances of 3SAT with
+at most 2 clauses working, but we deem this as minimal and not actually
+put in effort to implement those. We will give our excuse for this
+\emph{sloth} later in this section\ldots{}
 
-There is definitely something of beauty about the reduction from 3SAT to
-Decision 0-1 Knapsack. We will not go through the full proof but just
-key points in the reductions; (again) for the elegant, complete
-explanation, we recommend reading \emph{What Is A Computer and What Can
-It Do?}.
+Undeniably, there is something of beauty about the reduction from 3SAT
+to Decision 0-1 Knapsack. In the next few paragraphs, we will go through
+some relevant key points of this reduction process; (again) for an
+elegant and complete explanation, we recommend reading chapter 7 of
+\emph{What Is A Computer and What Can It Do?}.
 
 In the reduction from 3SAT to 1in3SAT, a clause like
 \((x_1 \lor x_2 \lor x_3)\) in the 3SAT problem instance will correspond
 to 3 clauses in 1in3SAT problem instance, i.e.
 \[(\bar{x}_1 \lor a \lor b)\land (b \lor x_2 \lor c)\land (c \lor d \lor \bar{x}_3)\]
 As we can see, we must triple the number of clauses and add 4 new
-variable. The reduction from 1in3SAT to SubsetSum, we create a pair of
-number \(v_i\) and \(v'_i\) for each variable \(x_i\)--this pair of
+variables. For the reduction from 1in3SAT to SubsetSum, we create a pair
+of number \(v_i\) and \(v'_i\) for each variable \(x_i\)--this pair of
 numbers are made up of 1's and 0's to represent truth assignment of the
-corresponding variable as well as its impact to each clause--in the
-1in3SAT instance; the target sum is of the length of each number in the
-set but made up of all 1's. The number of digits used for each new
-number equals to the sum of the number of clauses in the number of
-variables in the 1in3SAT problem instance. To reduce from SubsetSum to
-Decision 0-1 Knapsack, for each number in the set, we create an item
-with cost and value equal to that number. Then both the target and the
-budget are set to the target sum. As such, when using Maximum 0-1
-Knapsack solvers, we are forced to choose the optimal value that equals
-(no more, no less) than the budget; and because we require this
-exactness, we must use dynamic programming algorithms to find the
-optimal value instead of using any approximation-based algorithms.
+corresponding variable as well as its impact on the validity of each
+clause of the 1in3SAT problem instance; the target sum is of the same
+length as each number in the set but made up of all 1's. In short, the
+number of digits used for each new number equals to the sum of the
+number of clauses and the number of variables in the 1in3SAT problem
+instance. To reduce from SubsetSum to Decision 0-1 Knapsack, for each
+number in the set, we create an item with cost and value equal to that
+number. Then both the target and the budget are set to the target sum.
+As such, when using Maximum 0-1 Knapsack solvers, we are forced to
+choose the optimal value that equals (no more, no less) to the budget;
+and because we require this exactness, we must use dynamic programming
+algorithms to find the optimal value rather than any approximation-based
+algorithms.
 
 This chain of reductions is straight forward to code, but there is a
-problem. Let say we start with the minimal instance of 3SAT, with just 1
+problem. Let say we start with a minimal instance of 3SAT, with just 1
 clause and 2-3 variables, then the budget and the maximum value of an
 item will be at of 9-10 digits (3 clauses and 6-7 variables in the
 1in3SAT problem instance). We tested the 3SAT instance
@@ -409,7 +408,7 @@ Item:
 For this kind of situation, when we try to solve this Decision 0-1
 Knapsack problem using either dynamic programming approach, Java will
 respond with the exception \textbf{java.lang.OutOfMemoryError: Java heap
-space.} The problem exacerbates when we use more than 2 clauses. For
+space.} The problem exacerbates when we use 2 or more clauses. For
 example, we tested out
 \[(x_{0} \lor \bar{x}_{1} \lor \bar{x}_{2}) \land (x_{0} \lor x_{2} \lor x_{3})\]
 and go back the exception \textbf{java.lang.NumberFormatException: For
@@ -418,40 +417,41 @@ sum for our SubsetSum problem. The reason is that we use Integer type
 for numbers in the SubsetSum problem instance, which only accommodates
 to the maximum value of \(2^{32} \approx 4.3e9\).
 
-As such, we thought of a few optimization in hope that it can improve
+As such, we thought of a few optimizations in hope that it can improve
 the situation. For the number format problem, we can use type Long
 instead of Integer; even better, we can leave the number as String and
 use BigInteger class in Java to perform calculation with big numbers.
 The bigger problem, though, lies in the implementations of the
 algorithms used to solve Decision 0-1 Knapsack. Both dynamic programming
-approaches requires the construction of tables which base on either the
+approaches require the construction of tables which base on either the
 budget (for \textsc{MaxValDP}) or the maximum value of an item (for
-\textsc{MinCostDP}). These numbers as shown above are too big and thus,
-such table drains memory really fast.
+\textsc{MinCostDP}). These numbers, as shown above, are too big and
+thus, such tables drain memory drastically.
 
-We observe that although these are really big table, they are really
-sparse. As such, we can try to use linked list to represent such sparse
-table. If we use a single linked-list, if we increases the number of
-clauses, time taken to iterates through all the nodes will be absurd. If
-we use 2 linked-list, each of which represent header cells of the table'
-columns and rows, then we will end up with a linked-list of about a
-billion nodes or more, which also causes Java heap space to run out of
-memory.
+We observe that although these are humongous tables, they are really
+sparse. As such, we can try to use the linked-list data structure to
+represent such sparse table. If we just use a single linked-list, when
+we increase the number of clauses, the time taken to iterate through all
+the nodes will be absurd. If we use 2 linked-lists, each of which
+represents header cells of the table' columns and rows, then we will end
+up with a linked-list of about a billion nodes or more, which also
+causes Java heap space to exhaust.
 
 Another observation we have is that since all numbers coming out of the
 SubsetSum problem instance consist of only 0 and 1, we can think of
-these number as binary and feed those number to Maximum 0-1 Knapsack
-solvers. Nevertheless, for this approach, we have tried to use 2 SAT
-clauses and yet again a table with \(2^{20}\) column is still too big
-for Java to handle. We also think of an optimization where while
-reducing from 1in3SAT to SubsetSum, we can actually disregard the
-variable part in each number and only care about the clause part for
-each pair \(v_i\) and \(v'_i\). The reason why we include the literal
-part is to make sure that we cannot choose both \(v_i\) and \(v'_i\) for
-the same value of \(i\). As such, we can omit this part of the number
-and modify our algorithm slightly to do this check. One potential way is
-to keep track of which item is being taken, i.e. \(v_i\) is chosen, and
-thus skip \(v'_i\) while building further rows.
+these number as binary and feed their decimal presentations to the
+Maximum 0-1 Knapsack solvers. Nevertheless, for this approach, we have
+tried to use 2 SAT clauses and yet again a table with \(2^{20}\) column
+is still too big for Java to handle. We also think of an optimization
+where while reducing from 1in3SAT to SubsetSum, we can actually
+disregard the variable part in each number and only care about the
+clause part for each pair \(v_i\) and \(v'_i\). The reason why we
+include the literal part is to make sure that we cannot choose both
+\(v_i\) and \(v'_i\) for the same value of \(i\). As such, we can omit
+this part of the number and modify our algorithm slightly to do this
+check. One potential way is to keep track of which item is being taken,
+i.e. \(v_i\) is chosen, and thus skip \(v'_i\) while building further
+rows.
 
 Even with this optimization, we only increase the number of clauses
 possible for the 3SAT problem instance to have to 2. And 2 clauses will
@@ -462,7 +462,7 @@ phase. Also, it is expected that the running time of \textsc{MinCostDP}
 will be punished by the term \(n^2\) whereas by the way we construct the
 numbers for the SubsetSum problem instance, the ratio
 \(\frac{\text{budget}}{\text{maxValue}}\) will be approximately 1; and
-so we will find \textsc{MinCostDP} takes absurdly longer to run as
+so we will find \textsc{MinCostDP} takes significantly longer to run as
 compared to \textsc{MaxValDP}.
 
 Through this section, we have presented the \emph{peril} part of this
@@ -472,7 +472,7 @@ implementation. Perhaps, this could also due to our incompetence but for
 now, we decide to just move on with the other experiment, exploring the
 4 flavors of Maximum 0-1 Knapsack solvers.
 
-\chapter{Result and Discussion}\label{resdis}
+\chapter{Result and Discussion}\label{result}
 
 \section{Accuracy}\label{accuracy}
 
@@ -534,18 +534,19 @@ FPTAS & 0.26 & 0.111 & 0.074 & 0.22 & 0.145 & 0 & 7.02\tabularnewline
 \end{longtable}
 
 From both the plot and the table, we can see that both algorithms
-actually does much better than expected, the percentage error falls way
+actually do much better than expected, the percentage errors fall way
 below 50\%. This might have to do with the way we \textbf{randomly}
-generate the problem instances, since it is often the edge case that
-results in the 50\% error. Also, we can see that the maximum percentage
+generate the problem instances, since it is often the edge cases that
+result in the 50\% error. Also, we can see that the maximum percentage
 error produced by \textsc{FPTAS} is way less than that of
 \textsc{Greedy}. This could be due to the mechanism of each algorithm.
 In section \ref{algorithms}, we mentioned that \textsc{Greedy} has a
-totally different approach to choose the items and has a final step
+totally different approach to choosing the items and has a final step
 where it might disregard previously obtained results and just choose the
 item with maximum value; whereas \textsc{FPTAS} essentially uses
 \textsc{MinCostDP} and its errors are due to the truncation while
-scaling up and down the values of items.
+scaling up and down the values of items, which potentially results in
+smaller errors.
 
 \section{Running Time}\label{running-time}
 
@@ -558,14 +559,14 @@ Name & Mean & Median & L.Quartile & U.Quartile & IQR & Min &
 Max\tabularnewline
 \midrule
 \endhead
-MaxValDP & 151.532 & 68.02 & 14.452 & 224.857 & 210.406 & 0.038 &
-956.868\tabularnewline
-Greedy & 0.071 & 0.073 & 0.038 & 0.1 & 0.062 & 0.006 &
-1.233\tabularnewline
-MinCostDP & 419.992 & 282.004 & 54.472 & 725.475 & 671.003 & 0.179 &
-1508.587\tabularnewline
-FPTAS & 480.643 & 192.605 & 19.364 & 860.974 & 841.61 & 0.018 &
-2242.264\tabularnewline
+MaxValDP & 142.861 & 63.797 & 14.824 & 209.059 & 194.235 & 0.036 &
+941.761\tabularnewline
+Greedy & 0.068 & 0.071 & 0.04 & 0.094 & 0.055 & 0.004 &
+0.982\tabularnewline
+MinCostDP & 392.519 & 249.554 & 56.087 & 660.346 & 604.258 & 0.181 &
+1521.953\tabularnewline
+FPTAS & 453.986 & 172.883 & 19.96 & 812.275 & 792.315 & 0.018 &
+2175.657\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -587,13 +588,12 @@ Max Value & 994 & 998 & 995 & 1000 & 5 & 642 & 1000\tabularnewline
 \bottomrule
 \end{longtable}
 
-Nonetheless, through the running time summary only, we can already see a
-general trend in running time. \textsc{Greedy} is the clear winner in
-terms of speed. We have mentioned in section \ref{algorithms} that the
-running time of \textsc{Greedy} is majorly contributed by the sorting
-step--the choosing step after that is rather trivial. As such, the
-running time depends on the input size, not the values of the items, not
-the budget.
+Through the running time summary alone, we can already see a general
+trend in the running time. \textsc{Greedy} is the clear winner in terms
+of speed. We have mentioned in section \ref{algorithms} that the running
+time of \textsc{Greedy} is majorly contributed by the sorting step--the
+choosing step after that is rather trivial. As such, the running time
+depends on the input size, not the values of the items, not the budget.
 
 \textsc{MaxValDP} has a significantly higher running time as compared to
 that of \textsc{Greedy}. This is expected as we can see the in the
@@ -602,10 +602,11 @@ number of instance.
 
 Another observation is that \textsc{FPTAS} and \textsc{MinCostDP} have
 almost similar running time. Again this can be explained by the fact
-that \textsc{FPTAS} uses \textsc{MinCostDP} internally. Their running
-time, though, is almost 3 times as big as that of \textsc{MaxValDP}.
-This totally depends on the choice of budget and the maximum value of
-item in the problem instance.
+that \textsc{FPTAS} uses \textsc{MinCostDP} internally; i.e.
+\textsc{FPTAS} takes slightly longer due to the scaling and trunscating
+steps. Their running time, though, is almost 3 times as big as that of
+\textsc{MaxValDP}. This totally depends on the choice of budget and the
+maximum value of item in the problem instance.
 
 \begin{figure}
 
@@ -616,22 +617,21 @@ item in the problem instance.
 \caption{Running time of MinCostDP (left) and MaxValDP (right)}\label{fig:plot-function}
 \end{figure}
 
-Since we conduct the experiment with changing value of \(N\), we can
+Since we conduct the experiment with changing values of \(N\), we can
 then make 3D plots of running time against \(N\) and the budget for
 \textsc{MaxValDP} and running time against \(N\) and the maximum value
 for \textsc{MinCostDP}. Refer to figure \ref{fig:plot-function}, for
 \textsc{MinCostDP}, based on the curvature of the plot surface, we can
 see that the relationship between \(N\) and the optimal value is clearly
-non-linear, in fact, we can even see that it is indeed quadratic as
-mentioned in section \ref{algorithms}. Whereas, for \textsc{MaxValDP},
-we can see that the budget and \(N\) seem to be linearly related to the
-optimal value.
+non-linear, in fact, we can even see that it is indeed quadratic as the
+theory suggested. Whereas, for \textsc{MaxValDP}, we can see that the
+budget and \(N\) seem to be linearly related to the optimal value.
 
 \chapter{Conclusion}\label{conclusion}
 
 We can come up with the conclusion that \textsc{MaxValDP}, the vanilla
 flavor, shows why it is generally favored. It guarantees the optimal
-value (100\% accuracy) and relatively acceptable running time. The
+value (with 100\% accuracy) and relatively acceptable running time. The
 versatile \textsc{FPTAS} actually does worse in both aspect, accuracy
 and running time; but to do justice to it, it shines for its
 versatility; as compared to other approximation method which targets a
@@ -639,14 +639,15 @@ specific range of error, e.g. \textsc{Greedy}, it will not perform as
 good, otherwise, we will deem \textsc{Greedy} as useless and get rid of
 it. \textsc{Greedy}, though, runs amazingly fast and yields acceptable
 accuracy. The last flavor, \textsc{MinCostDP} is like chocolate. Hardly
-can anyone argues whether chocolate or vanilla is ultimately the better
-flavor. It is actually pretty hard to come up with an example to show
-that a type of pastries must come with chocolate instead of vanilla
-\ldots{} even brownies can come with vanilla. We guess the moral of the
-story is not that you can use either dynamic programming approach to
-solve any Maximum 0-1 Knapsack problem, but some go better with
-\textsc{MaxValDP} and others go better with \textsc{MinCostDP},
-i.e.~those problems with really high maximum value.
+can anyone argue whether chocolate or vanilla is ultimately the better
+flavor. Perhaps, even on situational basis: it is actually pretty hard
+to come up with an example to show that a type of pastries must come
+with chocolate instead of vanilla \ldots{} apparently brownies can also
+come with vanilla. We guess the moral of the story is not that you can
+use either dynamic programming approach to solve any Maximum 0-1
+Knapsack problem, but some go better with \textsc{MaxValDP} and others
+go better with \textsc{MinCostDP}, such as those problems with really
+high maximum value.
 
 \bibliography{packages.bib,book.bib}
 

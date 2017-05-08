@@ -14,7 +14,7 @@ description: "This project explores different approaches to the familiar Maximum
 
 # Introduction {-}
 
-In this project, we explore several different algorithms (flavors) to solve Maximum 0-1 Knapsack, a classic NP-Hard problem, _in a reasonable amount of time_. In our experiments, we want to show the difference between running time and the optimal value obtained using these various algorithms. 
+In this project, we shall explore several different algorithms (flavors) to solve Maximum 0-1 Knapsack, a classic NP-Hard problem, _in a reasonable amount of time_. In our experiments, we want to show the differences between the running time and the optimal values obtained using these various algorithms. 
 
 We also want to take a side-track and demonstrate how Maximum 0-1 Knapsack can be used to solve 3SAT, the iconic NP-Complete problem, via the polynomial time reduction from 3SAT to Decision 0-1 Knapsack [@oconnell2013].
 
