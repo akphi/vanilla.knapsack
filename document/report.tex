@@ -279,8 +279,8 @@ progress in this experiment. We will discuss this in section
 
 In this section, we will discuss each algorithms used in details; for a
 more thorough explanation and elegant proofs for these algorithms, we
-highly recommend \emph{What Is a Computer and What Can It Do?} by Thomas
-O'Connell.
+highly recommend chapter 8 of \emph{What Is a Computer and What Can It
+Do?} by Thomas O'Connell.
 
 First, the standard \textsc{MaxValDP} algorithm (the vanilla flavor that
 we are all too familiar to hate) is really the most standard way we know
@@ -292,13 +292,16 @@ right-most cell of the table gives us the optimal value. The running
 time for this algorithm is \(\Theta(nB)\).
 
 \textsc{Greedy} refers to the greedy 2-approximation algorithm that
-tackles the Maximum Fractional Knapsack version. As such, firstly, we
-sort the item in ascending order based on value/cost ratio. We
-continuously add items to the knapsack until it is full. In the end, we
-have to check the value of the most valuable item as there might be a
-case where we can actually just take this item instead. Here, we need to
-make an assumption that the budget is higher than the maximum cost of
-any item--\emph{we have enforced this condition while generating the
+tackles the Maximum Fractional Knapsack version. As such, initially, we
+sort the item in descending order based on value/cost ratio. We
+continuously add items to the knapsack and substract their costs from
+the budget until adding the next item results in the remaining budget
+going below 0. In the end, we have to compare the total value of the
+items obtained greedily with the value of the most valuable item as
+there might be a case where we can actually just take this item instead
+and end up having a better total value. Here, we need to make an
+assumption that the budget is higher than the maximum cost of any
+item--\emph{we have enforced this condition while generating the
 knapsack problem instance so we can safely make this assumption}. This
 algorithm's running time depends on the running time of the sorting step
 and thus, it is \(\Theta(n\log{n})\).

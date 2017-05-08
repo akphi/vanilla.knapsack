@@ -39,7 +39,7 @@ public class Knapsack2Approximation {
 	 * @return the maximum value can be achieved
 	 */
 	public static int solve(Knapsack<Integer> knapsack, ArrayList<Item<Integer>> itemTaken) {
-		// greedy approach: sort items based on value:cost ratio
+		// greedy approach: sort items in descending order based on value:cost ratio
 		Collections.sort(knapsack.getItemList(), new Comparator<Item<Integer>>() {
 			public int compare(Item<Integer> x, Item<Integer> y) {
 				return -1 * (new Double((double) x.getValue() / (double) x.getCost()))
@@ -59,13 +59,17 @@ public class Knapsack2Approximation {
 			}
 		}
 
-		// assume that the cost of each item is less than the budget
-		int maxValue = knapsack.getMaxValue();
+		// compute the total value of items collected so far
 		int currentTotalValue = 0;
 		for (Item<Integer> item : itemTaken) {
 			currentTotalValue += item.getValue();
 		}
 
+		// assume that the cost of each item is less than the budget
+		// check if the total value of items obtained greedily is
+		// greater than the maximum value, if not, choose the most
+		// valuable item
+		int maxValue = knapsack.getMaxValue();
 		return maxValue > currentTotalValue ? maxValue : currentTotalValue;
 	}
 
